@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Interfaces\UserRepositoryInterface;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -12,7 +13,7 @@ use Illuminate\Validation\ValidationException;
 class UserController extends Controller
 {
     /**
-     * @var UserRepository
+     * @var UserRepositoryInterface
      */
     private UserRepositoryInterface $userRepository;
 
@@ -24,7 +25,7 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function me(Request $request): \Illuminate\Http\JsonResponse
+    public function me(Request $request): JsonResponse
     {
         return response()->json($request->user());
     }
@@ -32,10 +33,10 @@ class UserController extends Controller
     /**
      * Generate token for user
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @throws ValidationException
      */
-    public function createToken(Request $request): \Illuminate\Http\JsonResponse
+    public function createToken(Request $request): JsonResponse
     {
         $request->validate([
             'email' => 'required|email',

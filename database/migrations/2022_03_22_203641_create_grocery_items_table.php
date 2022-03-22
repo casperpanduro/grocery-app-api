@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGroceryListsTable extends Migration
+class CreateGroceryItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateGroceryListsTable extends Migration
      */
     public function up()
     {
-        Schema::create('grocery_lists', function (Blueprint $table) {
+        Schema::create('grocery_items', function (Blueprint $table) {
             $table->id();
-            $table->text('title')->nullable();
+            $table->text('title');
             $table->foreignId('user_id')->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->foreignId('grocery_list_id');
+            $table->timestamp('checked_at')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreateGroceryListsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('grocery_lists');
+        Schema::dropIfExists('grocery_items');
     }
 }

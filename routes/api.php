@@ -26,9 +26,19 @@ Route::prefix('me')->group(function () {
 });
 
 Route::prefix('grocery-list')->group(function() {
+    Route::middleware('auth:sanctum')->group(function() {
+        Route::put('/{id}', [GroceryListController::class, 'update']);
+        Route::post('/', [GroceryListController::class, 'store']);
+        Route::delete('/{id}', [GroceryListController::class, 'destroy']);
+
+        // Items
+        Route::post('/{id}/item', [GroceryListController::class, 'createItem']);
+        Route::put('/{id}/item/{item_id}', [GroceryListController::class, 'updateItem']);
+        Route::delete('/{id}/item/{item_id}', [GroceryListController::class, 'deleteItem']);
+    });
+
     Route::get('/', [GroceryListController::class, 'index']);
     Route::get('/{id}', [GroceryListController::class, 'show']);
-    Route::put('/{id}', [GroceryListController::class, 'update']);
 });
 
 Route::fallback(function () {

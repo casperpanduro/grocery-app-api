@@ -1,7 +1,8 @@
 <?php
 namespace App\Repositories;
 
-use \App\Interfaces\UserRepositoryInterface;
+use \App\Interfaces\GroceryItemRepositoryInterface;
+use App\Interfaces\UserRepositoryInterface;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
