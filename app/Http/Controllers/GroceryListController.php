@@ -2,15 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GroceryList;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class GroceryListController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data = array("test" => "test", "auth" => auth());
+        $lists = GroceryList::get()->all();
+        return response()->json($lists);
+    }
 
-        return response()->json($data);
+    public function show($id)
+    {
+        $list = GroceryList::find($id)->first();
+        return response()->json($list);
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        $list = GroceryList::find($id)->first();
+
+        if ($request->title) {
+            $list->title = $request->title;
+        }
+
+        $list->save();
+
+        return response()->json($list);
     }
 }

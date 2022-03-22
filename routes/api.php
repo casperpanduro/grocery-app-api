@@ -25,8 +25,10 @@ Route::prefix('me')->group(function () {
     });
 });
 
-Route::middleware('auth:sanctum')->group(function() {
-    Route::get('/grocery-list', [GroceryListController::class, 'index']);
+Route::prefix('grocery-list')->group(function() {
+    Route::get('/', [GroceryListController::class, 'index']);
+    Route::get('/{id}', [GroceryListController::class, 'show']);
+    Route::put('/{id}', [GroceryListController::class, 'update']);
 });
 
 Route::fallback(function () {

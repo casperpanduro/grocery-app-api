@@ -9,7 +9,7 @@ class GroceryList extends Model
 {
     use HasFactory;
 
-    protected $with = ['user'];
+    protected $with = [];
 
     public function user()
     {
